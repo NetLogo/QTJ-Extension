@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Extension-Name: qtj
+Class-Manager: org.nlogo.extensions.qtj.QTJExtension
+NetLogo-Extension-API-Version: 5.0
