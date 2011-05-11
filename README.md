@@ -8,8 +8,7 @@ The QTJ extension is pre-installed in NetLogo. For instructions on using QuickTi
 
 ## Building
 
-Before building, you need to get QTJava.zip from your QuickTime
-installation, copy it here, and rename it QTJava.jar.
+Before building, you may need to get QTJava.zip from your QuickTime installation, copy it here, and rename it QTJava.jar. (The Makefile will attempt first to copy it from a known location.)
 
 Use the NETLOGO environment variable to tell the Makefile which NetLogo.jar to compile against.  For example:
 
