@@ -22,9 +22,9 @@ qtj.jar: $(SRCS) QTJava.jar manifest.txt
 
 QTJava.jar:
 ifneq (,$(findstring Darwin,$(shell uname)))
-	if [ ! -f extensions/qtj/QTJava.jar ] ; then cp /System/Library/Java/Extensions/QTJava.zip extensions/qtj/QTJava.jar ; fi
+	cp /System/Library/Java/Extensions/QTJava.zip QTJava.jar
 else
-	if [ ! -f extensions/qtj/QTJava.jar ] ; then cp ~/QTJava.jar extensions/qtj/QTJava.jar ; fi
+	cp ~/QTJava.jar QTJava.jar
 endif
 
 qtj.zip: qtj.jar
