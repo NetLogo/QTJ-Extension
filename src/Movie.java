@@ -35,7 +35,7 @@ public strictfp class Movie {
   public static class OpenMovie
       extends DefaultCommand {
     public Syntax getSyntax() {
-      return Syntax.commandSyntax(new int[]{Syntax.TYPE_STRING, Syntax.TYPE_NUMBER, Syntax.TYPE_NUMBER});
+      return Syntax.commandSyntax(new int[]{Syntax.StringType(), Syntax.NumberType(), Syntax.NumberType()});
     }
 
     public String getAgentClassString() {
@@ -106,7 +106,7 @@ public strictfp class Movie {
   public static class SetTime
       extends DefaultCommand {
     public Syntax getSyntax() {
-      return Syntax.commandSyntax(new int[]{Syntax.TYPE_NUMBER});
+      return Syntax.commandSyntax(new int[]{Syntax.NumberType()});
     }
 
     public String getAgentClassString() {
@@ -204,7 +204,7 @@ public strictfp class Movie {
       extends DefaultReporter {
     public Syntax getSyntax() {
       return Syntax.reporterSyntax
-          (new int[]{}, Syntax.TYPE_WILDCARD);
+          (new int[]{}, Syntax.WildcardType());
     }
 
     public String getAgentClassString() {

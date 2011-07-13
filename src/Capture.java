@@ -41,7 +41,7 @@ public strictfp class Capture {
   public static class StartCamera
       extends DefaultCommand {
     public Syntax getSyntax() {
-      return Syntax.commandSyntax(new int[]{Syntax.TYPE_NUMBER, Syntax.TYPE_NUMBER});
+      return Syntax.commandSyntax(new int[]{Syntax.NumberType(), Syntax.NumberType()});
     }
 
     public String getAgentClassString() {
@@ -108,7 +108,7 @@ public strictfp class Capture {
   public static class SelectCamera
       extends DefaultCommand {
     public Syntax getSyntax() {
-      return Syntax.commandSyntax(new int[]{Syntax.TYPE_NUMBER, Syntax.TYPE_NUMBER});
+      return Syntax.commandSyntax(new int[]{Syntax.NumberType(), Syntax.NumberType()});
     }
 
     public String getAgentClassString() {
@@ -196,7 +196,7 @@ public strictfp class Capture {
       extends DefaultReporter {
     public Syntax getSyntax() {
       return Syntax.reporterSyntax
-          (new int[]{}, Syntax.TYPE_WILDCARD);
+          (new int[]{}, Syntax.WildcardType());
     }
 
     public String getAgentClassString() {
