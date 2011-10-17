@@ -25,6 +25,6 @@ and http://bugs.sun.com/view_bug.do?bug_id=6460147 makes it impossible to make i
 
 ## Terms of Use
 
-![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)
+[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 The NetLogo QTJ (QuickTime for Java) extension is in the public domain.  To the extent possible under law, Uri Wilensky has waived all copyright and related or neighboring rights.
