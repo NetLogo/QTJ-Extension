@@ -17,11 +17,20 @@ qtj.jar: $(SRCS) QTJava.jar manifest.txt
 	jar cmf manifest.txt qtj.jar -C classes .
 
 QTJava.jar:
-ifneq (,$(findstring Darwin,$(shell uname)))
-	cp /System/Library/Java/Extensions/QTJava.zip QTJava.jar
-else
-	cp ~/QTJava.jar QTJava.jar
-endif
+	@if [ -f /System/Library/Java/Extensions/QTJava.zip ]; then \
+	echo "copying QTJava.jar from /System/Library/Java/Extensions"; \
+	cp /System/Library/Java/Extensions/QTJava.zip QTJava.jar; \
+	elif [ -f ~/QTJava.jar ]; then \
+	echo "copying QTJava.jar from home directory"; \
+	cp ~/QTJava.jar QTJava.jar; \
+	else \
+	echo "QTJava.jar not found. Cannot build qtj extension."; \
+	echo "Apple's license doesn't permit us to distribute this file."; \
+	echo "You'll need to find QTJava.zip on a Mac or Windows system with QuickTime installed"; \
+	echo "and copy it to" `pwd`"/QTJava.jar."; \
+	echo "Note the change in the name from .zip to .jar."; \
+	exit 1; \
+	fi
 
 qtj.zip: qtj.jar
 	rm -rf qtj
