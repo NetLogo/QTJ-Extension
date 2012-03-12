@@ -6,6 +6,13 @@ ifeq ($(origin NETLOGO), undefined)
   NETLOGO=../..
 endif
 
+ifneq (,$(findstring CYGWIN,$(shell uname -s)))
+  COLON=\;
+  JAVA_HOME := `cygpath -up "$(JAVA_HOME)"`
+else
+  COLON=:
+endif
+
 SRCS=$(wildcard src/*.java)
 
 # why redirect like this? see readme
@@ -13,7 +20,7 @@ JAVAC = $(JAVA_HOME)/bin/javac 2> /dev/null
 
 qtj.jar: $(SRCS) QTJava.jar manifest.txt
 	mkdir -p classes
-	$(JAVAC) -g -encoding us-ascii -source 1.5 -target 1.5 -classpath $(NETLOGO)/NetLogoLite.jar:QTJava.jar -d classes $(SRCS)
+	$(JAVAC) -g -encoding us-ascii -source 1.5 -target 1.5 -classpath $(NETLOGO)/NetLogoLite.jar$(COLON)QTJava.jar -d classes $(SRCS)
 	jar cmf manifest.txt qtj.jar -C classes .
 
 QTJava.jar:
