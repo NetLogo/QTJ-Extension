@@ -2,10 +2,6 @@ ifeq ($(origin JAVA_HOME), undefined)
   JAVA_HOME=/usr
 endif
 
-ifeq ($(origin NETLOGO), undefined)
-  NETLOGO=../..
-endif
-
 ifneq (,$(findstring CYGWIN,$(shell uname -s)))
   COLON=\;
   JAVA_HOME := `cygpath -up "$(JAVA_HOME)"`
@@ -18,11 +14,14 @@ SRCS=$(wildcard src/*.java)
 # why redirect like this? see readme
 JAVAC = $(JAVA_HOME)/bin/javac 2> /dev/null
 
-qtj.jar qtj.jar.pack.gz: $(SRCS) QTJava.jar manifest.txt
+qtj.jar qtj.jar.pack.gz: $(SRCS) QTJava.jar NetLogoLite.jar Makefile manifest.txt
 	mkdir -p classes
-	$(JAVAC) -g -encoding us-ascii -source 1.5 -target 1.5 -classpath $(NETLOGO)/NetLogoLite.jar$(COLON)QTJava.jar -d classes $(SRCS)
+	$(JAVAC) -g -encoding us-ascii -source 1.5 -target 1.5 -classpath NetLogoLite.jar$(COLON)QTJava.jar -d classes $(SRCS)
 	jar cmf manifest.txt qtj.jar -C classes .
 	pack200 --modification-time=latest --effort=9 --strip-debug --no-keep-file-order --unknown-attribute=strip qtj.jar.pack.gz qtj.jar
+
+NetLogoLite.jar:
+	curl -f -s -S 'http://ccl.northwestern.edu/netlogo/5.0.1/NetLogoLite.jar' -o NetLogoLite.jar
 
 QTJava.jar:
 	@if [ -f /System/Library/Java/Extensions/QTJava.zip ]; then \
