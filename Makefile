@@ -14,14 +14,17 @@ SRCS=$(wildcard src/*.java)
 # why redirect like this? see readme
 JAVAC = $(JAVA_HOME)/bin/javac 2> /dev/null
 
-qtj.jar qtj.jar.pack.gz: $(SRCS) QTJava.jar NetLogoLite.jar Makefile manifest.txt
+qtj.jar qtj.jar.pack.gz: $(SRCS) QTJava.jar NetLogo.jar NetLogoHeadless.jar Makefile manifest.txt
 	mkdir -p classes
-	$(JAVAC) -g -encoding us-ascii -source 1.5 -target 1.5 -classpath NetLogoLite.jar$(COLON)QTJava.jar -d classes $(SRCS)
+	$(JAVAC) -g -encoding us-ascii -source 1.7 -target 1.7 -classpath NetLogo.jar$(COLON)NetLogoHeadless.jar$(COLON)QTJava.jar -d classes $(SRCS)
 	jar cmf manifest.txt qtj.jar -C classes .
 	pack200 --modification-time=latest --effort=9 --strip-debug --no-keep-file-order --unknown-attribute=strip qtj.jar.pack.gz qtj.jar
 
-NetLogoLite.jar:
-	curl -f -s -S 'http://ccl.northwestern.edu/netlogo/5.0.1/NetLogoLite.jar' -o NetLogoLite.jar
+NetLogoHeadless.jar:
+	curl -f -s -S 'http://ccl.northwestern.edu/devel/6.0-M1/NetLogoHeadless.jar' -o NetLogoHeadless.jar
+
+NetLogo.jar:
+	curl -f -s -S 'http://ccl.northwestern.edu/devel/6.0-M1/NetLogo.jar' -o NetLogo.jar
 
 QTJava.jar:
 	@if [ -f /System/Library/Java/Extensions/QTJava.zip ]; then \
