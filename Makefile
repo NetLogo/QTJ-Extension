@@ -15,9 +15,11 @@ SRCS=$(wildcard src/*.java)
 JAVAC = $(JAVA_HOME)/bin/javac 2> /dev/null
 
 qtj.jar: $(SRCS) QTJava.jar NetLogo.jar NetLogoHeadless.jar Makefile manifest.txt
-	mkdir -p classes
-	$(JAVAC) -g -encoding us-ascii -source 1.7 -target 1.7 -classpath NetLogo.jar$(COLON)NetLogoHeadless.jar$(COLON)QTJava.jar -d classes $(SRCS)
-	jar cmf manifest.txt qtj.jar -C classes .
+  ifeq ($(TRAVIS),"")
+	  mkdir -p classes
+	  $(JAVAC) -g -encoding us-ascii -source 1.7 -target 1.7 -classpath NetLogo.jar$(COLON)NetLogoHeadless.jar$(COLON)QTJava.jar -d classes $(SRCS)
+	  jar cmf manifest.txt qtj.jar -C classes .
+  endif
 
 NetLogoHeadless.jar:
 	curl -f -s -S 'http://ccl.northwestern.edu/devel/6.0-M1/NetLogoHeadless.jar' -o NetLogoHeadless.jar
@@ -32,6 +34,9 @@ QTJava.jar:
 	elif [ -f ~/QTJava.jar ]; then \
 	echo "copying QTJava.jar from home directory"; \
 	cp ~/QTJava.jar QTJava.jar; \
+	elif [ -n "$(TRAVIS)" ] ; then \
+	echo "Skipping the build on travis"; \
+	exit 0; \
 	else \
 	echo "QTJava.jar not found. Cannot build qtj extension."; \
 	echo "Apple's license doesn't permit us to distribute this file."; \
